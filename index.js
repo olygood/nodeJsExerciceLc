@@ -1,12 +1,37 @@
 #!/usr/bin/env node
-console.log("loli");
+
 var validator = require("email-validator");
 var axios = require("axios");
+var figlet = require("figlet");
+const ora = require("ora");
+const [,, ...args] = process.argv;
+const email = validator.validate(`${args}`);
 
-var email = validator.validate("olivier.huttmacher@gmail.com");
+//var color = require("chalk");
+
+// text figlet test en ...
+figlet('Hack-Server-Node.js',function(err, data){
+    if(err){
+        console.log('sorry server is dead...');
+        console.dir(err);
+        return;
+    }
+    console.log(data)
+});
+
+// email validator verifie
 
 
-if(email==true){
+// ecrire en sortie et attender une réponse
+process.stdout.write('Je suis un server Node JS\n donne moi une Adresse Mail :');
+process.stdin.on('data', function (data){
+    process.stdout.write(`${data.toString()}`);
+});
+
+
+
+
+/*if(email==true){
     //requete axios
     console.log("ok");
     axios({
@@ -15,11 +40,63 @@ if(email==true){
       
         headers : {'User-Agent': 'nodejsexercicelc'}
       })
-        .then(function(response) {
-     console.log(response.data);
+        .then(res => {
+     console.log("");
+      res.data.foreach(function(breach){
+          console.log(breach.Name);
+          console.log(breach.Domain);
+          console.log(breach.Description);
+          //console.log(breach.);
+      })
       });
 }
 else{
     console.log("erreur");
+
 }
 
+*/
+
+if (email == true){
+    figlet('GRABBED!!', function(err, data) {
+    if (err) {
+    console.log('Something went wrong...');
+    console.dir(err);
+    return;
+    }
+    console.log(data)
+    });
+    
+    let spinner = ora(`Searching the breaches with ${args}`).clear()
+    
+    setTimeout(() => {
+        spinner.start()
+        spinner.color = 'green'
+        spinner.text = `Searching the breaches with ${args}\n`
+    })
+    
+    axios ({
+        method: 'GET',
+        url: `https://haveibeenpwned.com/api/v2/breachedaccount/${args}`,
+        data: [],
+        headers: {'User-Agent': 'grabbed'},
+    })
+    .then(res => {
+        console.log(chalk.red('We found some breaches with your email'))
+        res.data.forEach(function(breach){
+            console.log(chalk.green('Name : ') + breach.Name)
+            console.log(chalk.green('Domain : ') + breach.Domain)
+            console.log(chalk.green('Description : ') + '\n' + breach.Description  + '\n')
+            console.log(chalk.blue('-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --')+ '\n')
+        })
+    
+    setTimeout(() => {
+        spinner.stop()
+        spinner.clear()
+    })
+    
+    }).catch(err => {
+        const log = chalk.green('There is no breaches with your email !')
+        console.log(log)
+    })
+    }
