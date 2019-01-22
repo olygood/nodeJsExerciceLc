@@ -60,18 +60,20 @@ else{
 if (email == true){
     figlet('Hack-Server-Node-Js', function(err, data) {
     if (err) {
-    console.log('Something went wrong...');
+    console.log('Server is Dead...');
     console.dir(err);
     return;
     }
-    console.log(data)
+    console.log(chalk.blue(data));
+    console.log('\n');
     });
     
-    let spinner = ora(`Searching the breaches with ${args}`).clear()
+    //spinner
+    let spinner = ora(`Searching the breaches with ${args}\n`).clear()
     
     setTimeout(() => {
         spinner.start()
-        spinner.color = 'green'
+        spinner.color = 'yellow'
         spinner.text = `Searching the breaches with ${args}\n`
     })
     
@@ -82,7 +84,7 @@ if (email == true){
         headers: {'User-Agent': 'grabbed'},
     })
     .then(res => {
-        console.log(chalk.red('We found some breaches with your email'))
+        console.log(chalk.red(`We found some breaches with your email! ...${args}`))
         res.data.forEach(function(breach){
             console.log(chalk.green('Name : ') + breach.Name)
             console.log(chalk.green('Domain : ') + breach.Domain)
