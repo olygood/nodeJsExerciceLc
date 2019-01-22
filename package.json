@@ -1,6 +1,6 @@
 {
   "bin": {
-    "checkmail": "index.js"
+    "checkmail": "./index.js"
   },
   "name": "nodejsexercicelc",
   "version": "1.0.0",

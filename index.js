@@ -7,10 +7,10 @@ const ora = require("ora");
 const [,, ...args] = process.argv;
 const email = validator.validate(`${args}`);
 
-//var color = require("chalk");
+var chalk = require("chalk");
 
 // text figlet test en ...
-figlet('Hack-Server-Node.js',function(err, data){
+/*figlet('Hack-Server-Node.js',function(err, data){
     if(err){
         console.log('sorry server is dead...');
         console.dir(err);
@@ -18,16 +18,16 @@ figlet('Hack-Server-Node.js',function(err, data){
     }
     console.log(data)
 });
-
+*/
 // email validator verifie
 
 
-// ecrire en sortie et attender une réponse
+/* ecrire en sortie et attender une réponse
 process.stdout.write('Je suis un server Node JS\n donne moi une Adresse Mail :');
 process.stdin.on('data', function (data){
     process.stdout.write(`${data.toString()}`);
 });
-
+*/
 
 
 
@@ -58,7 +58,7 @@ else{
 */
 
 if (email == true){
-    figlet('GRABBED!!', function(err, data) {
+    figlet('Hack-Server-Node-Js', function(err, data) {
     if (err) {
     console.log('Something went wrong...');
     console.dir(err);
@@ -87,7 +87,7 @@ if (email == true){
             console.log(chalk.green('Name : ') + breach.Name)
             console.log(chalk.green('Domain : ') + breach.Domain)
             console.log(chalk.green('Description : ') + '\n' + breach.Description  + '\n')
-            console.log(chalk.blue('-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --')+ '\n')
+            //console.log(chalk.blue('-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --')+ '\n')
         })
     
     setTimeout(() => {
