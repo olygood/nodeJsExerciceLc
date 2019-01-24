@@ -102,3 +102,4 @@ if (email == true){
         console.log(log)
     })
     }
+  
